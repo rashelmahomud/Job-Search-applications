@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import auth from '../../firebase/firebase.config';
 
 const initialState = {
@@ -22,6 +22,13 @@ export const loginUser = createAsyncThunk("auth/loginUser", async ({ email, pass
     return data.user.email;
 });
 
+export const googleLogin = createAsyncThunk("auth/googleLogin", async () => {
+
+    const googleProvider = new GoogleAuthProvider();
+    const data = await signInWithPopup(auth, googleProvider);
+    return data.user.email;
+});
+
 
 const authSlice = createSlice({
     name: 'auth',
@@ -29,7 +36,11 @@ const authSlice = createSlice({
     reducers: {
         logout: (state) => {
             state.email = "";
-        }
+        },
+        setUser: (state, { payload }) => {
+            state.email = payload;
+            state.isLoading = false;
+        },
     },
     extraReducers: (builder) => {
 
@@ -67,10 +78,27 @@ const authSlice = createSlice({
                 state.isError = false;
                 state.errror = action.error.message;
             })
+            .addCase(googleLogin.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+                state.errror = "";
+            })
+            .addCase(googleLogin.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.email = action.payload;
+                state.isError = false;
+                state.errror = "";
+            })
+            .addCase(googleLogin.rejected, (state, action) => {
+                state.isLoading = false;
+                state.email = "";
+                state.isError = false;
+                state.errror = action.error.message;
+            })
 
     }
 })
 
-export const { logout } = authSlice.actions;
+export const { logout, setUser } = authSlice.actions;
 
 export default authSlice.reducer;

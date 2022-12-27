@@ -41,7 +41,11 @@ const authSlice = createSlice({
             state.email = payload;
             state.isLoading = false;
         },
+        toggleLoading: (state) => {
+            state.isLoading = false;
+        }
     },
+    
     extraReducers: (builder) => {
 
         builder.addCase(createUser.pending, (state) => {
@@ -58,7 +62,7 @@ const authSlice = createSlice({
             .addCase(createUser.rejected, (state, action) => {
                 state.isLoading = false;
                 state.email = "";
-                state.isError = false;
+                state.isError = true;
                 state.error = action.error.message;
             })
             .addCase(loginUser.pending, (state) => {
@@ -99,6 +103,6 @@ const authSlice = createSlice({
     }
 })
 
-export const { logout, setUser } = authSlice.actions;
+export const { logout, setUser, toggleLoading } = authSlice.actions;
 
 export default authSlice.reducer;

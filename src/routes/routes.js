@@ -5,7 +5,9 @@ import Home from "../pages/home/Home";
 import JobDetails from "../pages/JobDetails";
 import Jobs from "../pages/Jobs";
 import Login from "../pages/Login";
+import AccountCreator from "../pages/register/AccountCreator";
 import Signup from "../pages/Signup";
+import PrivateRoute from "../utils/PrivateRoute";
 
 
 const routes = createBrowserRouter([
@@ -33,22 +35,22 @@ const routes = createBrowserRouter([
         path: "/signup",
         element: <Signup />,
       },
-    //   {
-    //     path: "/register",
-    //     element: (
-    //       <PrivateRoute>
-    //         <AccountCreator />
-    //       </PrivateRoute>
-    //     ),
-    //   },
-    //   {
-    //     path: "/register/:type",
-    //     element: (
-    //       <PrivateRoute>
-    //         <AccountCreator />
-    //       </PrivateRoute>
-    //     ),
-    //   },
+      {
+        path: "/register",
+        element: (
+          <PrivateRoute>
+            <AccountCreator />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/register/:type",
+        element: (
+          <PrivateRoute>
+            <AccountCreator />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {

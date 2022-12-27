@@ -25,7 +25,7 @@ const Navbar = () => {
     >
       <ul className='max-w-7xl mx-auto flex gap-3 h-full items-center'>
         <li className='flex-auto font-semibold text-2xl'>
-          <Link to='/'>JobBox</Link>
+          <Link to='/'>JOB-SEARCH</Link>
         </li>
         <li>
           <Link className='hover:text-primary' to='/jobs'>

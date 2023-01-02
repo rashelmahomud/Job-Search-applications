@@ -3,8 +3,7 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndP
 import auth from '../../firebase/firebase.config';
 
 const initialState = {
-    email: '',
-    role: "",
+    user: { email: '', role: "" },
     isLoading: true,
     isError: false,
     error: '',
@@ -35,17 +34,17 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            state.email = "";
+            state.user.email = "";
         },
         setUser: (state, { payload }) => {
-            state.email = payload;
+            state.user.email = payload;
             state.isLoading = false;
         },
         toggleLoading: (state) => {
             state.isLoading = false;
         }
     },
-    
+
     extraReducers: (builder) => {
 
         builder.addCase(createUser.pending, (state) => {
@@ -55,13 +54,13 @@ const authSlice = createSlice({
         })
             .addCase(createUser.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.email = action.payload;
+                state.user.email = action.payload;
                 state.isError = false;
                 state.error = "";
             })
             .addCase(createUser.rejected, (state, action) => {
                 state.isLoading = false;
-                state.email = "";
+                state.user.email = "";
                 state.isError = true;
                 state.error = action.error.message;
             })
@@ -72,13 +71,13 @@ const authSlice = createSlice({
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.email = action.payload;
+                state.user.email = action.payload;
                 state.isError = false;
                 state.error = "";
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.isLoading = false;
-                state.email = "";
+                state.user.email = "";
                 state.isError = true;
                 state.error = action.error.message;
             })
@@ -89,13 +88,13 @@ const authSlice = createSlice({
             })
             .addCase(googleLogin.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.email = action.payload;
+                state.user.email = action.payload;
                 state.isError = false;
                 state.error = "";
             })
             .addCase(googleLogin.rejected, (state, action) => {
                 state.isLoading = false;
-                state.email = "";
+                state.user.email = "";
                 state.isError = false;
                 state.error = action.error.message;
             })

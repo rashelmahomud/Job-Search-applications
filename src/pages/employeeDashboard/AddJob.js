@@ -38,7 +38,7 @@ const AddJob = () => {
           <label className='mb-2' htmlFor='position'>
             Position
           </label>
-          <input type='text' id='position' {...register("position")} />
+          <input className="rounded-full p-2" type='text' id='position' {...register("position")} />
         </div>
         <div className='flex flex-col w-full max-w-xs'>
           <label className='mb-2' htmlFor='companyName'>
@@ -46,7 +46,7 @@ const AddJob = () => {
           </label>
           <input
             disabled
-            className='cursor-not-allowed'
+            className='cursor-not-allowed p-2'
             type='text'
             id='companyName'
             {...register("companyName")}
@@ -56,19 +56,20 @@ const AddJob = () => {
           <label className='mb-2' htmlFor='experience'>
             Experience
           </label>
-          <input type='text' id='experience' {...register("experience")} />
+          <input className="rounded-full p-2" type='text' id='experience' {...register("experience")} />
         </div>
         <div className='flex flex-col w-full max-w-xs'>
           <label className='mb-2' htmlFor='workLevel'>
             Work Level
           </label>
-          <input type='text' id='workLevel' {...register("workLevel")} />
+          <input className="rounded-full p-2" type='text' id='workLevel' {...register("workLevel")} />
         </div>
         <div className='flex flex-col w-full max-w-xs'>
           <label className='mb-2' htmlFor='employmentType'>
             Employment Type
           </label>
           <input
+          className="rounded-full p-2"
             type='text'
             id='employmentType'
             {...register("employmentType")}
@@ -78,20 +79,20 @@ const AddJob = () => {
           <label className='mb-2' htmlFor='salaryRange'>
             Salary Range
           </label>
-          <input type='text' id='salaryRange' {...register("salaryRange")} />
+          <input className="rounded-full p-2" type='text' id='salaryRange' {...register("salaryRange")} />
         </div>
         <div className='flex flex-col w-full'>
           <label className='mb-2' htmlFor='location'>
             Location
           </label>
-          <input type='text' id='location' {...register("location")} />
+          <input className="rounded-full p-2" type='text' id='location' {...register("location")} />
         </div>
         <hr className='w-full mt-2 bg-black' />
         <div className='flex flex-col w-full'>
           <label className='mb-2' htmlFor='overview'>
             Overview
           </label>
-          <textarea rows={8} {...register("overview")} id='overview' />
+          <textarea className="rounded" rows={8} {...register("overview")} id='overview' />
         </div>
         <div className='flex flex-col w-full'>
           <label className='mb-2'>Skills</label>
@@ -101,7 +102,7 @@ const AddJob = () => {
                 return (
                   <div key={item.key} className='flex items-center gap-3 mb-5'>
                     <input
-                      className='!w-full'
+                      className='!w-full rounded-full p-2'
                       type='text'
                       {...register(`skills[${index}]`)}
                     />
@@ -138,7 +139,7 @@ const AddJob = () => {
                 return (
                   <div key={item.key} className=' mb-5 flex items-center gap-3'>
                     <input
-                      className='!w-full'
+                      className='!w-full rounded-full p-2'
                       type='text'
                       {...register(`responsibilities[${index}]`)}
                     />
@@ -175,7 +176,7 @@ const AddJob = () => {
                 return (
                   <div key={item.key} className=' mb-5 flex items-center gap-3'>
                     <input
-                      className='!w-full'
+                      className='!w-full rounded-full p-2'
                       type='text'
                       {...register(`requirements[${index}]`)}
                     />

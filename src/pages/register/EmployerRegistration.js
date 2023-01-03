@@ -76,7 +76,7 @@ const EmployerRegistration = () => {
             <label className='mb-2' htmlFor='email'>
               Email
             </label>
-            <input type='email' id='email' disabled {...register("email")} />
+            <input type='email' id='email' disabled className="cursor-not-allowed" {...register("email")} />
           </div>
           <div className='flex flex-col w-full max-w-xs'>
             <h1 className='mb-3'>Gender</h1>

@@ -123,7 +123,7 @@ const AddJob = () => {
               <button
                 type='button'
                 onClick={() => skillAppend("")}
-                className='btn'
+                className='outline outline-offset-2 outline-1 rounded-full p-2'
               >
                 Add Skill
               </button>
@@ -160,7 +160,7 @@ const AddJob = () => {
               <button
                 type='button'
                 onClick={() => resAppend("")}
-                className='btn'
+                className='outline outline-offset-2 outline-1 rounded-full p-2'
               >
                 Add Responsibility
               </button>
@@ -197,7 +197,7 @@ const AddJob = () => {
               <button
                 type='button'
                 onClick={() => reqAppend("")}
-                className='btn'
+                className='outline outline-offset-2 outline-1 rounded-full p-2'
               >
                 Add Requirement
               </button>
@@ -206,7 +206,7 @@ const AddJob = () => {
         </div>
 
         <div className='flex justify-end items-center w-full mt-3'>
-          <button className='btn' type='submit'>
+          <button className='outline outline-offset-2 outline-1 rounded-full py-2 px-3' type='submit'>
             Submit
           </button>
         </div>

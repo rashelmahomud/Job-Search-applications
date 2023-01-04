@@ -5,7 +5,6 @@ import { useGetJobsQuery } from "../features/job/jobApi";
 const Jobs = () => {
   const navigate = useNavigate();
   const { data, isError, isLoading } = useGetJobsQuery();
-  console.log(data)
 
   return (
     <div className='pt-14'>
@@ -14,7 +13,7 @@ const Jobs = () => {
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10">
         {
 
-          data?.data?.map(({ position, location, companyName }) => <div className="shadow-lg p-4 mt-5 rounded">
+          data?.data?.map(({ _id, position, companyName, location, employmentType }) => <div className="shadow-lg p-4 mt-5 rounded">
             <div className="flex justify-between">
               <div>
                 <h1 className="font-bold text-xl">{position}</h1>
@@ -24,7 +23,7 @@ const Jobs = () => {
             </div>
             <div className="flex justify-between mt-5">
               <h1>Full Time</h1>
-              <button className='border p-2 rounded font-bold' onClick={() => navigate("/job-details")}>
+              <button className='border p-2 rounded font-bold' onClick={() => navigate(`/job-details/${_id}`)}>
                 Details
               </button>
             </div>

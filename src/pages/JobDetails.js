@@ -4,11 +4,13 @@ import meeting from "../assets/ss.png";
 import { BsArrowRightShort, BsArrowReturnRight } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetByIdQuery } from "../features/job/jobApi";
+import { useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
 const JobDetails = () => {
-
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  const {id} = useParams();
-  const {data, isError, isLoading} = useGetByIdQuery(id);
+  const { id } = useParams();
+  const { data, isError, isLoading } = useGetByIdQuery(id);
   console.log(data);
 
 
@@ -28,6 +30,25 @@ const JobDetails = () => {
     _id,
   } = data?.data || {};
 
+  const handelApply = () => {
+
+    if (user.role === 'employer') {
+      toast.error('you need a candidte account to apply');
+      return;
+    };
+
+    if (user.role === '') {
+      navigate('/register');
+      return;
+    }
+    const data = {
+      userId: user._id,
+      email: user.email,
+      jobId: _id
+    };
+    console.log(data)
+  }
+
   return (
     <div className='pt-14 max-w-7xl mx-auto grid grid-cols-12 gap-5'>
       <div className='col-span-9 mb-10'>
@@ -37,7 +58,7 @@ const JobDetails = () => {
         <div className='space-y-5'>
           <div className='flex justify-between items-center mt-5'>
             <h1 className='text-xl font-semibold text-primary'>{position}</h1>
-            <button className='btn px-3 p-2 border rounded-full bg-green-400/10 hover:bg-green-700'>Apply</button>
+            <button onClick={handelApply} className='btn px-3 p-2 border rounded-full bg-green-400/10 hover:bg-green-700'>Apply</button>
           </div>
           <div>
             <h1 className='text-primary text-lg font-medium mb-3'>Overview</h1>

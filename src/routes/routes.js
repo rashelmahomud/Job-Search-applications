@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "../layout/dashboard/Dashboard";
 import Main from "../layout/main/Main";
+import AppliedJobs from "../pages/candidateDashboard/AppliedJobs";
 import AddJob from "../pages/employeeDashboard/AddJob";
 import Home from "../pages/home/Home";
 import JobDetails from "../pages/JobDetails";
@@ -63,6 +64,10 @@ const routes = createBrowserRouter([
     ),
     children: [
 
+      {
+        path: 'applied-jobs',
+        element: <AppliedJobs />,
+      },
       {
         path: 'add-job',
         element: <AddJob />,

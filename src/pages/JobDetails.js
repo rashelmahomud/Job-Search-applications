@@ -3,7 +3,7 @@ import React from "react";
 import meeting from "../assets/ss.png";
 import { BsArrowRightShort, BsArrowReturnRight } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetByIdQuery } from "../features/job/jobApi";
+import { useApplyJobMutation, useGetByIdQuery } from "../features/job/jobApi";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 const JobDetails = () => {
@@ -30,6 +30,8 @@ const JobDetails = () => {
     _id,
   } = data?.data || {};
 
+  const [applyJob] = useApplyJobMutation();
+
   const handelApply = () => {
 
     if (user.role === 'employer') {
@@ -46,7 +48,7 @@ const JobDetails = () => {
       email: user.email,
       jobId: _id
     };
-    console.log(data)
+    applyJob(data);
   }
 
   return (

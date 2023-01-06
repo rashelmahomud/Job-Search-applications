@@ -13,7 +13,7 @@ const JobDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { register, handleSubmit, reset } = useForm();
-  const { data, isError, isLoading } = useGetByIdQuery(id);
+  const { data, isError, isLoading } = useGetByIdQuery(id, {pollingInterval: 1000});  // {pollingInterval: 1000} ai code ta holeo niddarito second por por data again call hobe server thaka new fetch.
 
 
   const {

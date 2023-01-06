@@ -24,6 +24,7 @@ export const jobApi = apiSlice.injectEndpoints({
                 url: '/query',
                 body: data
             }),
+            invalidatesTags: ['job'],
         }),
         reply: builder.mutation({
             query: (data) => ({
@@ -31,6 +32,7 @@ export const jobApi = apiSlice.injectEndpoints({
                 url: '/reply',
                 body: data
             }),
+            invalidatesTags: ['job'],  //realtime loading for this line onli.. and main apiSlic a akto code asa atar jonno ar
         }),
 
         getJobs: builder.query({
@@ -47,6 +49,7 @@ export const jobApi = apiSlice.injectEndpoints({
             query: (id) => ({
                 url: `/job/${id}`,
             }),
+            providesTags: ['job'],
         }),
 
 

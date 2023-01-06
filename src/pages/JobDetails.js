@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
 import meeting from "../assets/ss.png";
 import { BsArrowRightShort, BsArrowReturnRight } from "react-icons/bs";
-import { useNavigate, useParams } from "react-router-dom";
-import { useApplyJobMutation, useGetByIdQuery } from "../features/job/jobApi";
+import { Form, useNavigate, useParams } from "react-router-dom";
+import { useApplyJobMutation, useGetByIdQuery, useQuestionMutation, useReplyMutation } from "../features/job/jobApi";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
+import { useForm } from "react-hook-form";
 const JobDetails = () => {
+  const [reply, setReply] = useState('');
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const { id } = useParams();
+  const { register, handleSubmit, reset } = useForm();
   const { data, isError, isLoading } = useGetByIdQuery(id);
-  console.log(data);
 
 
   const {
@@ -31,6 +33,8 @@ const JobDetails = () => {
   } = data?.data || {};
 
   const [applyJob] = useApplyJobMutation();
+  const [sendQuestion] = useQuestionMutation();
+  const [sendReply] = useReplyMutation();
 
   const handelApply = () => {
 
@@ -50,6 +54,28 @@ const JobDetails = () => {
     };
     applyJob(data);
   }
+
+  const handelQuestion = (data) => {
+    const questionData = {
+      ...data,
+      userId: user._id,
+      email: user.email,
+      jobId: _id,
+    }
+    sendQuestion(questionData)
+    reset();
+  };
+
+  const handelReply = (id) => {
+    const data = {
+      reply,
+      userId: id,
+    };
+    sendReply(data);
+    reset();
+    console.log(data);
+  }
+
 
   return (
     <div className='pt-14 max-w-7xl mx-auto grid grid-cols-12 gap-5'>
@@ -118,32 +144,37 @@ const JobDetails = () => {
                     </p>
                   ))}
 
-                  <div className='flex gap-3 my-5'>
-                    <input placeholder='Reply' type='text' className='w-full' />
+                  {user.role === 'employar' && <div className='flex gap-3 my-5'>
+                    <input placeholder='Reply' type='text' className='w-full' onBlur={(e) => setReply(e.target.value)} />
                     <button
                       className='shrink-0 h-14 w-14 bg-primary/10 border border-primary hover:bg-primary rounded-full transition-all  grid place-items-center text-primary hover:text-white'
                       type='button'
+                      onClick={() => handelReply(id)}
                     >
                       <BsArrowRightShort size={30} />
                     </button>
-                  </div>
+                  </div>}
                 </div>
               ))}
             </div>
 
-            <div className='flex gap-3 my-5'>
-              <input
-                placeholder='Ask a question...'
-                type='text'
-                className='w-full border rounded-full p-2 '
-              />
-              <button
-                className='shrink-0 h-14 w-14 bg-green-400/10 border border-primary hover:bg-green-700 rounded-full transition-all  grid place-items-center text-primary hover:text-white'
-                type='button'
-              >
-                <BsArrowRightShort size={30} />
-              </button>
-            </div>
+            {user.role === 'candidate' && <Form onClick={handleSubmit(handelQuestion)}>
+              <div className='flex gap-3 my-5'>
+                <input
+                  placeholder='Ask a question...'
+                  type='text'
+                  className='w-full border rounded-full p-2 '
+                  {...register('question')}
+                />
+                <button
+                  className='shrink-0 h-14 w-14 bg-green-400/10 border border-primary hover:bg-green-700 rounded-full transition-all  grid place-items-center text-primary hover:text-white'
+                  type='submit'
+                >
+                  <BsArrowRightShort size={30} />
+                </button>
+              </div>
+            </Form>}
+
           </div>
         </div>
       </div>
@@ -184,7 +215,7 @@ const JobDetails = () => {
           </div>
           <div>
             <p>Email</p>
-            <h1 className='font-semibold text-lg'>company.email@name.com</h1>
+            <h1 className='font-semibold text-lg'>company.rashel@gmail.com</h1>
           </div>
           <div>
             <p>Company Location</p>

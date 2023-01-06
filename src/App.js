@@ -11,7 +11,6 @@ import routes from './routes/routes';
 function App() {
 
   const {isLoading} =  useSelector((state) => state.auth);
-  console.log(isLoading);
   const dispatch = useDispatch();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {

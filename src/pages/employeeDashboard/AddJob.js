@@ -6,7 +6,6 @@ import { usePostJobMutation } from "../../features/job/jobApi";
 
 const AddJob = () => {
   const { companyName } = useSelector((state) => state.auth.user);
-  console.log('hello', companyName);
   const { handleSubmit, register, control } = useForm();
   const [postJob, { isError, isLoading }] = usePostJobMutation();
 

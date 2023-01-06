@@ -30,6 +30,7 @@ const Signup = () => {
 
   const onSubmit = (data) => {
     dispatch(createUser({ email: data.email, password: data.password }));
+    navigate('/');
   };
 
 
